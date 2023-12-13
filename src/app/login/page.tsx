@@ -5,6 +5,8 @@ import styles from '../signup/page.module.css'
 import InputField from '@/Components/PureComponents/InputField/InputField'
 import CustomButton from '@/Components/PureComponents/CustomButton/CustomButton'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Typography } from '@mui/material'
 
 const Login = () => {
 
@@ -23,6 +25,9 @@ const Login = () => {
         <InputField type='password' lable='Password'/>
         </div>
         <CustomButton onClick={() => handleClickLogin()} type='submit' name='LOG IN' />
+        <Link href={'/login'}>
+          <Typography sx={{ color: 'gray', mt: '40px' }} variant="subtitle1" gutterBottom>Don Not Have An Account ?</Typography>
+        </Link>
       </div>
     </div>
   )

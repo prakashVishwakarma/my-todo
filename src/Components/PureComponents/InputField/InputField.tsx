@@ -13,7 +13,6 @@ const InputField: React.FC<InputFieldProps> = ({ type, lable }) => {
             <label>{lable || 'Please provide lable'}</label>
             <input type={type || 'text'} />
         </div>
-
     )
 }
 

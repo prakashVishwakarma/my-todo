@@ -22,7 +22,6 @@ const Home = () => {
   return (
     <>
       <Box className={styles.container} sx={{ mt: '20px' }}>
-
         <Link href="/create">
           <CustomButton type='button' name='Create' />
         </Link>

@@ -7,7 +7,7 @@ import CustomButton from '@/Components/PureComponents/CustomButton/CustomButton'
 import { useRouter } from 'next/navigation'
 
 const Create = () => {
-  
+
   const router = useRouter()
 
   const handleClickCreate = () => {
@@ -18,8 +18,8 @@ const Create = () => {
       <div className={styles.container}>
         <h1>Create</h1>
         <div className={styles.innerContainer}>
-        <InputField type='text' lable='Title'/>
-        <InputField type='text' lable='Content'/>
+          <InputField type='text' lable='Title' />
+          <InputField type='text' lable='Content' />
         </div>
         <CustomButton onClick={() => handleClickCreate()} type='submit' name='Create' />
       </div>

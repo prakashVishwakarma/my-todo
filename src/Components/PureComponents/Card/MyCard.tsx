@@ -7,11 +7,12 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CustomButton from '../CustomButton/CustomButton';
 import Link from 'next/link';
+import AlertDialogSlide from '@/Components/AlertDialogSlide/AlertDialogSlide';
 
 const MyCard = () => {
+
     return (
         <Card sx={{ maxWidth: 345, bgcolor: '#73ff7a98' }}>
-
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     Lizard
@@ -22,18 +23,17 @@ const MyCard = () => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link href="/view">
-                    <CustomButton type='button' name='View' />
-                </Link>
+                <AlertDialogSlide text={'View'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'}
+                    dialogContentText='
+                        Let Google help apps determine location. This means sending anonymous
+                        location data to Google, even when no apps are running.' />
                 <Link href="/update">
                     <CustomButton type='button' name='Update' />
                 </Link>
-                <Link href="#">
+                <AlertDialogSlide text={'Delete'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'} />
+                {/* <Link href="#">
                     <CustomButton type='button' name='Delete' />
-                </Link>
-
-
-
+                </Link> */}
             </CardActions>
         </Card>
     )
