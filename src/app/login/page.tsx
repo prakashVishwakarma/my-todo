@@ -25,7 +25,7 @@ const Login = () => {
         <InputField type='password' lable='Password'/>
         </div>
         <CustomButton onClick={() => handleClickLogin()} type='submit' name='LOG IN' />
-        <Link href={'/login'}>
+        <Link href={'/signup'}>
           <Typography sx={{ color: 'gray', mt: '40px' }} variant="subtitle1" gutterBottom>Don Not Have An Account ?</Typography>
         </Link>
       </div>
