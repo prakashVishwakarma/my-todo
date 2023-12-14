@@ -28,6 +28,7 @@ const Signup = () => {
     } else {
       alert('Confirm Password Is Not Matching')
     }
+    
   }
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {

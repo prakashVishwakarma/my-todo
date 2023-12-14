@@ -9,31 +9,33 @@ import CustomButton from '../CustomButton/CustomButton';
 import Link from 'next/link';
 import AlertDialogSlide from '@/Components/AlertDialogSlide/AlertDialogSlide';
 
-const MyCard = () => {
+interface MyCardPropsObj {
+    title: string;
+    content: string;
+}
+interface MyCardProps {
+    value: MyCardPropsObj;
+    index: number;
+}
 
+const MyCard: React.FC<MyCardProps> = ({ value, index }) => {
+    console.log(value)
     return (
         <Card sx={{ maxWidth: 345, bgcolor: '#73ff7a98' }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {value.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
+                    {value.content}
                 </Typography>
             </CardContent>
             <CardActions>
-                <AlertDialogSlide text={'View'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'}
-                    dialogContentText='
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.' />
+                <AlertDialogSlide valueData={value} text={'View'} Cancel={'Cancel'} Done={'Done'} />
                 <Link href="/update">
                     <CustomButton type='button' name='Update' />
                 </Link>
-                <AlertDialogSlide text={'Delete'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'} />
-                {/* <Link href="#">
-                    <CustomButton type='button' name='Delete' />
-                </Link> */}
+                <AlertDialogSlide valueData={value} text={'Delete'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'} />
             </CardActions>
         </Card>
     )

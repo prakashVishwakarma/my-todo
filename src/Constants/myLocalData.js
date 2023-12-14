@@ -8,7 +8,7 @@ export const myLocalData = {
 
     myTodo: [
         {
-            id: '',
+            // id: '',
             title: '',
             content: '',
         },

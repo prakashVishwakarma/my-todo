@@ -1,48 +1,88 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import InputField from '@/Components/PureComponents/InputField/InputField'
 import CustomButton from '@/Components/PureComponents/CustomButton/CustomButton'
 import { useRouter } from 'next/navigation'
 import { myLocalData, myLocalDataName } from '@/Constants/myLocalData'
 
-const Create = () => {
-  const [todoObj, setTodoObj] = useState({})
-  const [todoData, setTodoData] = useState([
-    {
-      id: 'sxfd',
-      title: 's',
-      content: 's',
-    },
-    {
-      id: 'd',
-      title: 'd',
-      content: 'd',
-    },
+interface TodoItem {
+  // id?: string;
+  title: string;
+  content: string;
+}
 
-  ])
+const Create = () => {
+
+  const [todoObj, setTodoObj] = useState<TodoItem>({
+    // id: '',
+    title: '',
+    content: '',
+  })
+
+  const [todoArray, setTodoArray] = useState<TodoItem[]>([{
+    // id: '',
+    title: '',
+    content: '',
+  }]) // error
 
   const router = useRouter()
 
   const handleClickCreate = () => {
+
+    let tempTodoArray: TodoItem[] = []
+    
+    // if(!todoObj.title) return alert('Please Fill The Title')
+    // if(!todoObj.content) return alert('Please Fill The Content')
+
+    setTodoArray(prev => {
+      // tempTodoArray = [...prev, todoObj]
+    console.log('tempTodoArray',tempTodoArray)
+
     const storedData = localStorage.getItem(myLocalDataName);
     const parsedData = storedData ? JSON.parse(storedData) : {};
     const myLocalData = {
-      loginAndSignup: { ...parsedData.loginAndSignup },
-      myTodo: [...todoData],
+      loginAndSignup: { ...parsedData?.loginAndSignup },
+      myTodo: [...prev, todoObj]
     }
-    // localStorage.setItem(myLocalDataName, JSON.stringify(todoData))
-    console.log(myLocalData)
-    // router.back()
+    localStorage.setItem(myLocalDataName, JSON.stringify(myLocalData))
+    console.log('myLocalData', myLocalData)
+
+    return [...prev, todoObj]
+  })
+    router.back()
   }
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setTodoObj((prev) => ({ ...prev, [name]: value }));
+    // console.log({ name, value })
   }
 
-  console.log(todoObj)
+  useEffect(() => {
+    const myLocalData = JSON.parse(localStorage.getItem(myLocalDataName) ?? `{
+
+      loginAndSignup: {
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
+
+      myTodo: [
+        {
+          title: '',
+          content: '',
+        },
+
+      ],
+
+
+    }`)
+    setTodoArray(myLocalData.myTodo)
+    // alert('sjdf')
+    // console.log('myLocalData',myLocalData)
+  }, [])
 
   return (
     <div className={styles.theMainDiv}>
