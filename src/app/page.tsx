@@ -25,7 +25,7 @@ const Home = () => {
   const [myTodos, setMyTodos] = useState([])
   const router = useRouter()
 
-  const handleClickLogOut = ()=>{
+  const handleClickLogOut = () => {
     localStorage.clear()
     router.push('/signup')
   }
@@ -67,8 +67,10 @@ const Home = () => {
             </div>
           </div>
           :
-          <><h1>Please Create a Todo</h1>
-            <h3>Your Todo is Empty</h3></>
+          <>
+            <h1>Please Create a Todo</h1>
+            <h3>Your Todo is Empty</h3>
+          </>
       }
     </>
   )

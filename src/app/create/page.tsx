@@ -25,32 +25,32 @@ const Create = () => {
     // id: '',
     title: '',
     content: '',
-  }]) 
+  }])
 
   const router = useRouter()
 
   const handleClickCreate = () => {
 
     let tempTodoArray: TodoItem[] = []
-    
-    if(!todoObj.title) return alert('Please Fill The Title')
-    if(!todoObj.content) return alert('Please Fill The Content')
+
+    if (!todoObj.title) return alert('Please Fill The Title')
+    if (!todoObj.content) return alert('Please Fill The Content')
 
     setTodoArray(prev => {
       // tempTodoArray = [...prev, todoObj]
-    console.log('tempTodoArray',tempTodoArray)
+      console.log('tempTodoArray', tempTodoArray)
 
-    const storedData = localStorage.getItem(myLocalDataName);
-    const parsedData = storedData ? JSON.parse(storedData) : {};
-    const myLocalData = {
-      loginAndSignup: { ...parsedData?.loginAndSignup },
-      myTodo: [...prev, todoObj]
-    }
-    localStorage.setItem(myLocalDataName, JSON.stringify(myLocalData))
-    console.log('myLocalData', myLocalData)
+      const storedData = localStorage.getItem(myLocalDataName);
+      const parsedData = storedData ? JSON.parse(storedData) : {};
+      const myLocalData = {
+        loginAndSignup: { ...parsedData?.loginAndSignup },
+        myTodo: [...prev, todoObj]
+      }
+      localStorage.setItem(myLocalDataName, JSON.stringify(myLocalData))
+      console.log('myLocalData', myLocalData)
 
-    return [...prev, todoObj]
-  })
+      return [...prev, todoObj]
+    })
     router.back()
   }
 
@@ -92,7 +92,10 @@ const Create = () => {
           <InputField onChange={handleInputFieldChange} name='title' type='text' lable='Title' />
           <InputField onChange={handleInputFieldChange} name='content' type='text' lable='Content' />
         </div>
-        <CustomButton onClick={() => handleClickCreate()} type='submit' name='Create' />
+        <div>
+          <CustomButton onClick={() => handleClickCreate()} type='submit' name='Cancel' />
+          <CustomButton onClick={() => handleClickCreate()} type='submit' name='Create' />
+        </div>
       </div>
     </div>
   )
