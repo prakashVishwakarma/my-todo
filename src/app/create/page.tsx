@@ -29,28 +29,30 @@ const Create = () => {
 
   const router = useRouter()
 
-  const handleClickCreate = () => {
+  const handleClickCreate = (buttonType: string) => {
+    if (buttonType === 'Create') {
 
-    let tempTodoArray: TodoItem[] = []
+      let tempTodoArray: TodoItem[] = []
 
-    if (!todoObj.title) return alert('Please Fill The Title')
-    if (!todoObj.content) return alert('Please Fill The Content')
+      if (!todoObj.title) return alert('Please Fill The Title')
+      if (!todoObj.content) return alert('Please Fill The Content')
 
-    setTodoArray(prev => {
-      // tempTodoArray = [...prev, todoObj]
-      console.log('tempTodoArray', tempTodoArray)
+      setTodoArray(prev => {
+        // tempTodoArray = [...prev, todoObj]
+        console.log('tempTodoArray', tempTodoArray)
 
-      const storedData = localStorage.getItem(myLocalDataName);
-      const parsedData = storedData ? JSON.parse(storedData) : {};
-      const myLocalData = {
-        loginAndSignup: { ...parsedData?.loginAndSignup },
-        myTodo: [...prev, todoObj]
-      }
-      localStorage.setItem(myLocalDataName, JSON.stringify(myLocalData))
-      console.log('myLocalData', myLocalData)
+        const storedData = localStorage.getItem(myLocalDataName);
+        const parsedData = storedData ? JSON.parse(storedData) : {};
+        const myLocalData = {
+          loginAndSignup: { ...parsedData?.loginAndSignup },
+          myTodo: [...prev, todoObj]
+        }
+        localStorage.setItem(myLocalDataName, JSON.stringify(myLocalData))
+        console.log('myLocalData', myLocalData)
 
-      return [...prev, todoObj]
-    })
+        return [...prev, todoObj]
+      })
+    }
     router.back()
   }
 
@@ -93,8 +95,8 @@ const Create = () => {
           <InputField onChange={handleInputFieldChange} name='content' type='text' lable='Content' />
         </div>
         <div>
-          <CustomButton onClick={() => handleClickCreate()} type='submit' name='Cancel' />
-          <CustomButton onClick={() => handleClickCreate()} type='submit' name='Create' />
+          <CustomButton onClick={() => handleClickCreate('Cancel')} type='submit' name='Cancel' />
+          <CustomButton onClick={() => handleClickCreate('Create')} type='submit' name='Create' />
         </div>
       </div>
     </div>
