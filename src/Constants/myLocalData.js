@@ -7,11 +7,6 @@ export const myLocalData = {
     },
 
     myTodo: [
-        {
-            // id: '',
-            title: '',
-            content: '',
-        },
 
     ],
 

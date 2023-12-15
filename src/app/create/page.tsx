@@ -7,7 +7,7 @@ import CustomButton from '@/Components/PureComponents/CustomButton/CustomButton'
 import { useRouter } from 'next/navigation'
 import { myLocalData, myLocalDataName } from '@/Constants/myLocalData'
 
-interface TodoItem {
+export interface TodoItem {
   // id?: string;
   title: string;
   content: string;
@@ -25,7 +25,7 @@ const Create = () => {
     // id: '',
     title: '',
     content: '',
-  }]) // error
+  }]) 
 
   const router = useRouter()
 
@@ -33,8 +33,8 @@ const Create = () => {
 
     let tempTodoArray: TodoItem[] = []
     
-    // if(!todoObj.title) return alert('Please Fill The Title')
-    // if(!todoObj.content) return alert('Please Fill The Content')
+    if(!todoObj.title) return alert('Please Fill The Title')
+    if(!todoObj.content) return alert('Please Fill The Content')
 
     setTodoArray(prev => {
       // tempTodoArray = [...prev, todoObj]

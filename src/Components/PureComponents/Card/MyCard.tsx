@@ -16,9 +16,10 @@ interface MyCardPropsObj {
 interface MyCardProps {
     value: MyCardPropsObj;
     index: number;
+    reStoreMyLocalData?: () => void;
 }
 
-const MyCard: React.FC<MyCardProps> = ({ value, index }) => {
+const MyCard: React.FC<MyCardProps> = ({ value, index, reStoreMyLocalData }) => {
     console.log(value)
     return (
         <Card sx={{ maxWidth: 345, bgcolor: '#73ff7a98' }}>
@@ -31,11 +32,11 @@ const MyCard: React.FC<MyCardProps> = ({ value, index }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <AlertDialogSlide valueData={value} text={'View'} Cancel={'Cancel'} Done={'Done'} />
-                <Link href="/update">
+                <AlertDialogSlide valueData={value} text={'View'} Cancel={'Close'} Done={'Done'} />
+                <Link href={`/update/${index}`}>
                     <CustomButton type='button' name='Update' />
                 </Link>
-                <AlertDialogSlide valueData={value} text={'Delete'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'} />
+                <AlertDialogSlide  valueData={value} text={'Delete'} Cancel={'Cancel'} Done={'Done'} title={'Are You Sure You Want To Delete ?'} />
             </CardActions>
         </Card>
     )

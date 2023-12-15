@@ -9,6 +9,7 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import CustomButton from '../PureComponents/CustomButton/CustomButton';
 import { myLocalDataName } from '@/Constants/myLocalData';
+import { useRouter } from 'next/navigation';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -31,45 +32,57 @@ interface AlertDialogSlideProps {
     Done: string;
     title?: string;
     valueData?: valueDataProps;
+    reStoreMyLocalData?: () => void;
 }
 
-const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({ valueData, text, Cancel, Done, title }) => {
+const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({ reStoreMyLocalData, valueData, text, Cancel, Done, title }) => {
 
     const [open, setOpen] = React.useState(false);
+    const router = useRouter();
 
     const handleClickOpen = () => {
+        router.replace('/')
+        router.refresh()
         setOpen(true);
     };
 
     const handleCloseAndDelete = (deletevalueData: valueDataProps | undefined) => {
 
-        const myLocalData = JSON.parse(localStorage.getItem(myLocalDataName) ?? `{
+        if (deletevalueData) {
 
-        loginAndSignup: {
-          email: '',
-          password: '',
+
+            const myLocalData = JSON.parse(localStorage.getItem(myLocalDataName) ?? `{
+                
+                loginAndSignup: {
+                    email: '',
+                    password: '',
           confirmPassword: '',
         },
-  
+        
         myTodo: [
           {
             title: '',
             content: '',
-          },
+        },
   
         ],
   
-      }`)
+    }`)
 
-        const filterdTodo = myLocalData.myTodo.filter((value: valueDataProps) => {
-            // console.log('value',value.title, deletevalueData?.title)
-            return (
-                value.title == deletevalueData?.title
-            )
-        })
+            const filterdTodo = myLocalData.myTodo.filter((value: valueDataProps) => (value.title !== deletevalueData?.title))
+
+            const storedData = localStorage.getItem(myLocalDataName);
+            const parsedData = storedData ? JSON.parse(storedData) : {};
+            const myLocalDataWithDeletedValue = {
+                loginAndSignup: { ...parsedData?.loginAndSignup },
+                myTodo: [...filterdTodo]
+            }
+            localStorage.setItem(myLocalDataName, JSON.stringify(myLocalDataWithDeletedValue))
+            window.location.reload();
+        }
         setOpen(false);
+        // reStoreMyLocalData()
     };
-    console.log('valueData d',valueData)
 
     return (
         <React.Fragment>
@@ -82,12 +95,12 @@ const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({ valueData, text, Ca
                 aria-describedby="alert-dialog-slide-description"
             >
                 {
-                    valueData?.title &&
-                    <DialogTitle>{valueData?.title}</DialogTitle>
-                }
-                {
                     title &&
                     <DialogTitle>{title}</DialogTitle>
+                }
+                {
+                    valueData?.title &&
+                    <DialogTitle>{valueData?.title}</DialogTitle>
                 }
                 {
                     valueData?.content &&
@@ -98,8 +111,11 @@ const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({ valueData, text, Ca
                     </DialogContent>
                 }
                 <DialogActions>
-                    <CustomButton type='button' name={Cancel} onClick={() => handleCloseAndDelete(valueData)} />
-                    <CustomButton type='button' name={Done} onClick={() => handleCloseAndDelete(undefined)} />
+                    <CustomButton type='button' name={Cancel} onClick={() => handleCloseAndDelete(undefined)} />
+                    {
+                        text !== 'View' &&
+                    <CustomButton type='button' name={Done} onClick={() => handleCloseAndDelete(valueData)} />
+                    }
                 </DialogActions>
             </Dialog>
         </React.Fragment>
